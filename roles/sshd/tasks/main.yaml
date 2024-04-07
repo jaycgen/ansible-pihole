@@ -6,6 +6,7 @@
       PermitRootLogin no
       MaxAuthTries 3
       MaxSessions 5
+      UsePAM no
       PasswordAuthentication no
   notify: Restart sshd
 
