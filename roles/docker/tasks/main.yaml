@@ -45,5 +45,9 @@
       }
   notify: Restart Docker
 
+- name: Add a docker network for proxied rpi services
+  docker_network:
+    name: rpi-proxy
+
 - name: Flush handlers
   meta: flush_handlers

@@ -1,0 +1,8 @@
+- name: Initialize proxy
+  hosts: all
+  become: yes
+  serial: 1
+  roles:
+    #- docker
+    #- pihole
+    - proxy

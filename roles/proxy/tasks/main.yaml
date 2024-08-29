@@ -1,0 +1,46 @@
+- name: Create proxy directory
+  file:
+    path: "/home/{{ ansible_user }}/proxy"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    state: directory
+    mode: 0755
+
+- name: Check if 'proxy.conf' file exists
+  stat:
+    path: "/home/{{ ansible_user }}/proxy/proxy.conf"
+  register: proxy_conf
+
+- name: "Delete 'proxy.conf' if link or a folder"
+  file:
+    path: "/home/{{ ansible_user }}/proxy/proxy.conf"
+    state: absent
+  when:  (proxy_conf.stat.exists) and ((proxy_conf.stat.islnk) or (proxy_conf.stat.isdir))
+
+- name: Import 'proxy.conf'
+  copy:
+    src: "proxy.conf"
+    dest: "/home/{{ ansible_user }}/proxy/proxy.conf"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0775
+    force: yes
+
+- name: Start/Update proxy container
+  docker_container:
+    name: proxy
+    image: "{{ proxy_image }}"
+    pull: yes
+    restart_policy: unless-stopped
+    networks:
+      - name: rpi-proxy
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - "/home/{{ ansible_user }}/proxy/proxy.conf:/etc/nginx/conf.d/proxy.conf:ro"
+      - "/home/{{ ansible_user }}/proxy/certs:/etc/nginx/certs:ro"
+    log_driver: json-file
+    log_options:
+      max-size: "10m"
+      max-file: "5"

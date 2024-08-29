@@ -3,8 +3,10 @@
   become: yes
   serial: 1
   roles:
+    - stop_keepalived
     - bootstrap
     - updates
     - sshd
     - docker
     - pihole
+    - start_keepalived
