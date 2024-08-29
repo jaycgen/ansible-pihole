@@ -32,10 +32,10 @@
     image: "{{ proxy_image }}"
     pull: yes
     restart_policy: unless-stopped
+    restart: true
     networks:
       - name: rpi-proxy
     ports:
-      - 80:80
       - 443:443
     volumes:
       - "/home/{{ ansible_user }}/proxy/proxy.conf:/etc/nginx/conf.d/proxy.conf:ro"
