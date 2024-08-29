@@ -11,7 +11,7 @@ all:
     ansible_python_interpreter: /usr/bin/python3
     timezone: "Europe/London"
     static_dns: "1.1.1.1"
-    pihole_image: "pihole/pihole:2024.03.2"
+    pihole_image: "pihole/pihole:2024.06.0"
     pihole_ftl_max_db_days: "180"
     pihole_dns: "1.1.1.1;2606:4700:4700::1111"
     pihole_rev_server: "true"
