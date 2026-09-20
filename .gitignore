@@ -1,0 +1,27 @@
+# Environment & secrets
+.env
+*.env
+local_vars.yaml
+*vault_pass*
+
+# Cryptographic keys and certificates
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+*.csr
+*.srl
+
+# Superpowers & agent artifacts
+.superpowers/
+docs/superpowers/
+*.spec.md
+*.design.md
+
+# Backups and temporary files
+backups/
+*.tar.gz
+*.backup
+*.retry
+.DS_Store
