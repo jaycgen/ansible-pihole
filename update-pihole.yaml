@@ -3,5 +3,7 @@
   become: yes
   serial: 1
   roles:
-    - updates
-    - pihole
+    - role: updates
+      tags: [never, os_updates]
+    - role: pihole
+      tags: [always, pihole]
